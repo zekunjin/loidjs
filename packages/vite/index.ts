@@ -10,7 +10,7 @@ export interface RouterOptions {
 
 export const router = {
   install(app: App) {
-    const files = import.meta.glob('@/views/**/*.vue') as Record<string, () => Promise<RouteComponent>>
+    const files = import.meta.glob(['@/views/**/*.vue', '!**/components/**/*.vue', '!**/_*.vue', '!**/.*.vue']) as Record<string, () => Promise<RouteComponent>>
     const routes = generateRoutesFromFiles(files)
 
     const router = createRouter({
