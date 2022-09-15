@@ -1,4 +1,4 @@
-<script lang="ts" scoped>
+<script lang="ts" setup>
 import Widget from './components/widget.vue'
 </script>
 

@@ -1,15 +1,10 @@
 import { createRouter, createWebHistory, RouteComponent } from 'vue-router'
 import { generateRoutesFromFiles } from '@loidjs/core'
 import type { App } from 'vue'
-
-export interface RouterOptions {
-  base: string
-  include: string[]
-  exclude?: string[]
-}
+import type { Router as VueRouter } from 'vue-router'
 
 export const router = {
-  install(app: App) {
+  install(app: App, callback: (router: VueRouter) => void) {
     const files = import.meta.glob(['@/views/**/*.vue', '!**/components/**/*.vue', '!**/_*.vue', '!**/.*.vue']) as Record<string, () => Promise<RouteComponent>>
     const routes = generateRoutesFromFiles(files)
 
@@ -19,5 +14,8 @@ export const router = {
     })
 
     app.use(router)
+    callback(router)
   }
 }
+
+export { VueRouter }
