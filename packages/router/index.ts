@@ -28,12 +28,9 @@ export const generateRoutesFromFiles = (files: Record<string, () => Promise<Rout
 
   routeArray.forEach((route) => {
     routeRecord[route.path] = route
-  })
-
-  routeArray.forEach(({ path, component, children, meta = {} }) => {
-    const parent = (meta.parent as string) || ''
-    if (!parent) routes.push({ path, component, children } as RouteRecordRaw)
-    else (routeRecord[parent].children as RouteRecordRaw[]).push(routeRecord[path])
+    const parent = (route.meta?.parent as string) || ''
+    if (!parent) routes.push(route)
+    else (routeRecord[parent].children as RouteRecordRaw[]).push(routeRecord[route.path])
   })
 
   return routes
