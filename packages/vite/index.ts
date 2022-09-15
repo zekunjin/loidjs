@@ -1,10 +1,11 @@
-import { createRouter, createWebHistory, RouteComponent } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import { generateRoutesFromFiles } from '@loidjs/core'
 import type { App } from 'vue'
-import type { Router as VueRouter } from 'vue-router'
+import type { Router as VueRouter, RouteComponent } from 'vue-router'
+
+type ImportVueGlobFunction = Record<string, () => Promise<RouteComponent>>
 
 interface PageMeta {
-  title?: string
   pageTransition?: boolean
   layoutTransition?: boolean
   key?: false | string
@@ -16,7 +17,7 @@ interface PageMeta {
 export const router = {
   install(app: App, callback: (router: VueRouter) => void) {
     const files = import.meta.glob(['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*'])
-    const routes = generateRoutesFromFiles(files as Record<string, () => Promise<RouteComponent>>)
+    const routes = generateRoutesFromFiles(files as ImportVueGlobFunction)
 
     const router = createRouter({
       history: createWebHistory(),
