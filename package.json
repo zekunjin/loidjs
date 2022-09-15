@@ -1,0 +1,27 @@
+{
+  "name": "loidjs",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "serve:vite": "pnpm -C ./playgrounds/vite dev",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.18.6",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-typescript": "^8.4.0",
+    "@types/jest": "^29.0.0",
+    "esbuild": "^0.15.6",
+    "jest": "^29.0.2",
+    "rollup": "^2.79.0",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-esbuild": "^4.10.1",
+    "ts-jest": "29.0.0-next.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.2"
+  }
+}

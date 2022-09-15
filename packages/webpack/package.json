@@ -1,0 +1,15 @@
+{
+  "name": "@loidjs/webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vue": "^2.7.10",
+    "vue-router": "^3.6.5"
+  }
+}
