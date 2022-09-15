@@ -11,5 +11,7 @@ const router = useRouter()
 
     <button @click="router.go(-1)">back</button>
     <button @click="router.push('/parent/child')">child</button>
+
+    <RouterView />
   </div>
 </template>
