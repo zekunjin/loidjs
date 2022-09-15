@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "noUnusedLocals": true,
-    "types": ["jest"]
+    "types": ["vite/client", "jest"]
   },
   "include": ["packages/**/*", "meta", "rollup.config.ts"],
   "exclude": ["node_modules", "**/dist"]
