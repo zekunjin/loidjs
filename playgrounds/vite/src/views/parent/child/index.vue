@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import Widget from './components/widget.vue'
+import Component from './components/component.vue'
+import Ignore from './_ignore.vue'
 </script>
 
 <template>
   <span>
     child page
-    <Widget />
+    <Component />
+    <Ignore />
   </span>
 </template>
