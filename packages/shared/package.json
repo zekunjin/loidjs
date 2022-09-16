@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@loidjs/common": "workspace:^1.0.0"
+    "@loidjs/common": "workspace:^1.0.0",
+    "fast-glob": "^3.2.12"
   }
 }

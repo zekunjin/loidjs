@@ -2,7 +2,7 @@ import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 
 const DEFAULT_FILE_NAME = 'index'
 
-export const generateRoutesFromFiles = (files: Record<string, () => Promise<RouteComponent>>): RouteRecordRaw[] => {
+export const generateRoutesFromFiles = (files: Record<string, () => Promise<unknown>>): RouteRecordRaw[] => {
   const routeRecord: Record<string, RouteRecordRaw> = {}
   const routeArray: RouteRecordRaw[] = []
   const routes: RouteRecordRaw[] = []
@@ -20,7 +20,7 @@ export const generateRoutesFromFiles = (files: Record<string, () => Promise<Rout
 
     routeArray.push({
       path: segments.join('/'),
-      component,
+      component: component as () => Promise<RouteComponent>,
       meta: { parent: segments.slice(0, segments.length - 1).join('/') },
       children: []
     })

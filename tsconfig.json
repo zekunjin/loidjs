@@ -16,8 +16,8 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "noUnusedLocals": true,
-    "types": ["vite/client", "jest"]
+    "types": ["jest"]
   },
-  "include": ["packages/**/*", "meta", "rollup.config.ts"],
+  "include": ["packages/**/*", "meta", "rollup.config.ts", "playgrounds/**/*"],
   "exclude": ["node_modules", "**/dist"]
 }

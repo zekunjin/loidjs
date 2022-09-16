@@ -1,14 +1,13 @@
 import { createApp } from 'vue'
-import { router } from '@loidjs/vite'
-import type { VueRouter } from '@loidjs/vite'
+import { createRouter, createWebHistory } from 'vue-router'
+import { generateRoutesFromFiles } from '@loidjs/core'
 import App from './App.vue'
 
 const app = createApp(App)
 
-app.use(router, (ctx: VueRouter) => {
-  ctx.beforeEach((to, from, next) => {
-    next()
-  })
+const router = createRouter({
+  history: createWebHistory(),
+  routes: generateRoutesFromFiles(import.meta.glob(['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*']))
 })
 
-app.mount('#app')
+app.use(router).mount('#app')

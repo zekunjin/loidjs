@@ -1,9 +1,11 @@
 {
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "types": ["vite/client", "node"],
     "paths": {
-      "@loidjs/vite": ["../../packages/vite"]
+      "@/*": ["src/*"],
+      "@loidjs/core": ["../../packages/core/index.ts"]
     }
   }
 }

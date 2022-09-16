@@ -8,7 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
-      '@loidjs/vite': resolve(__dirname, '../../packages/vite')
+      '@loidjs/core': resolve(__dirname, '../../packages/core')
     }
   }
 })
