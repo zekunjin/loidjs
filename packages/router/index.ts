@@ -3,14 +3,16 @@ import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 
 const DEFAULT_FILE_NAME = 'index'
 
-export const generateRoutesFromFiles = (files: Record<string, () => Promise<unknown>>): RouteRecordRaw[] => {
+export type ImportGlobFunction = Record<string, () => Promise<unknown>>
+
+export const generateRoutesFromFiles = (files: ImportGlobFunction): RouteRecordRaw[] => {
   const routeArray: RouteRecordRaw[] = []
   const exclude = ['src', 'views', DEFAULT_FILE_NAME]
 
   Object.entries(files).forEach(([path, component]) => {
     const segments = path
       .replace(/.vue?/, '')
-      .replace(/\[([\w-]+)]/, ':$1')
+      .replace(/\[([\w-]+)]/g, ':$1')
       .split('/')
       .filter((path) => !exclude.includes(path))
       .filter(Boolean)
@@ -20,12 +22,9 @@ export const generateRoutesFromFiles = (files: Record<string, () => Promise<unkn
     routeArray.push({
       path: segments.join('/'),
       component: component as () => Promise<RouteComponent>,
-      meta: { parent: segments.slice(0, segments.length - 1).join('/') },
-      children: []
+      meta: { parent: segments.slice(0, segments.length - 1).join('/') }
     })
   })
 
-  const routes = transferFlatArrayToTreeArray<RouteRecordRaw>(routeArray, { key: 'path', parentKey: 'meta.parent' })
-
-  return routes
+  return transferFlatArrayToTreeArray<RouteRecordRaw>(routeArray, { key: 'path', parentKey: 'meta.parent' })
 }
