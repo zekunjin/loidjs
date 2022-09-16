@@ -1,4 +1,4 @@
-import { calcFlatArrayToTreeArray } from '@loidjs/shared'
+import { transferFlatArrayToTreeArray } from '@loidjs/shared'
 import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 
 const DEFAULT_FILE_NAME = 'index'
@@ -25,7 +25,7 @@ export const generateRoutesFromFiles = (files: Record<string, () => Promise<unkn
     })
   })
 
-  const routes = calcFlatArrayToTreeArray<RouteRecordRaw>(routeArray, { key: 'path', parentKey: 'meta.parent' })
+  const routes = transferFlatArrayToTreeArray<RouteRecordRaw>(routeArray, { key: 'path', parentKey: 'meta.parent' })
 
   return routes
 }

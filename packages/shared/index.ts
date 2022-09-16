@@ -3,7 +3,7 @@ interface FlatArrayKeyOptions {
   parentKey: string
 }
 
-export const calcFlatArrayToTreeArray = <T>(arr: Record<string, any>[], options: FlatArrayKeyOptions = { key: 'id', parentKey: 'pid' }): T[] => {
+export const transferFlatArrayToTreeArray = <T>(arr: Record<string, any>[], options: FlatArrayKeyOptions = { key: 'id', parentKey: 'pid' }): T[] => {
   const tree: any[] = []
   const rows: Record<string, any> = {}
 
