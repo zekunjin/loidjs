@@ -5,7 +5,7 @@
     "types": ["vite/client", "node"],
     "paths": {
       "@/*": ["src/*"],
-      "@loidjs/core": ["../../packages/core/index.ts"]
+      "@loidjs/core": ["../../packages/core"]
     }
   }
 }
