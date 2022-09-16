@@ -1,6 +1,6 @@
 {
   "name": "@loidjs/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -12,6 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@loidjs/router": "workspace:^1.0.0"
+    "@loidjs/router": "workspace:^1.0.1"
   }
 }

@@ -34,7 +34,7 @@ importers:
 
   packages/core:
     specifiers:
-      '@loidjs/router': workspace:^1.0.0
+      '@loidjs/router': workspace:^1.0.1
     dependencies:
       '@loidjs/router': link:../router
 
