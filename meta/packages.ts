@@ -21,5 +21,6 @@ interface PackageManifest {
 
 export const packages: PackageManifest[] = [
   { name: 'core', display: 'loidjs', build: true, external: ['@loidjs/router'], globals: { '@loidjs/router': 'LoidRouter' } },
-  { name: 'router', display: 'loidjs', build: true, external: ['vue-router'], globals: { 'vue-router': 'VueRouter' } }
+  { name: 'router', display: 'loidjs', build: true, external: ['vue-router', '@loidjs/shared'], globals: { 'vue-router': 'VueRouter', '@loidjs/shared': 'LoidShared' } },
+  { name: 'shared', display: 'loidjs', build: true }
 ]
