@@ -7,7 +7,7 @@ export type ImportGlobFunction = Record<string, () => Promise<unknown>>
 
 export const generateRoutesFromFiles = (files: ImportGlobFunction): RouteRecordRaw[] => {
   const routeArray: RouteRecordRaw[] = []
-  const exclude = ['src', 'views', DEFAULT_FILE_NAME]
+  const exclude = ['.', '@', 'src', 'views', DEFAULT_FILE_NAME]
 
   Object.entries(files).forEach(([path, component]) => {
     const segments = path
@@ -21,6 +21,7 @@ export const generateRoutesFromFiles = (files: ImportGlobFunction): RouteRecordR
 
     routeArray.push({
       path: segments.join('/'),
+      props: true,
       component: component as () => Promise<RouteComponent>,
       meta: { parent: segments.slice(0, segments.length - 1).join('/') }
     })

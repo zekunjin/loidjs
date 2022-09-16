@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 
-const route = useRoute()
+defineProps({
+  id: { type: String }
+})
+
 const router = useRouter()
 </script>
 
 <template>
   <div>
-    <div>{{ route.params }}</div>
+    <div>{{ id }}</div>
 
     <button @click="router.go(-1)">back</button>
     <button @click="router.push('/parent/child')">child</button>
