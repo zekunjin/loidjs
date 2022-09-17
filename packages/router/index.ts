@@ -3,6 +3,10 @@ import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 
 const DEFAULT_FILE_NAME = 'index'
 
+export interface PageMeta {
+  document?: { title?: string }
+}
+
 export type ImportGlobFunction = Record<string, () => Promise<unknown>>
 
 export const generateRoutesFromFiles = (files: ImportGlobFunction): RouteRecordRaw[] => {
@@ -28,4 +32,8 @@ export const generateRoutesFromFiles = (files: ImportGlobFunction): RouteRecordR
   })
 
   return transferFlatArrayToTreeArray<RouteRecordRaw>(routeArray, { key: 'path', parentKey: 'meta.parent' })
+}
+
+export const definePageMeta = (meta: PageMeta) => {
+  if (meta?.document?.title) document.title = meta.document.title
 }
