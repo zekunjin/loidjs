@@ -7,9 +7,9 @@ export interface PageMeta {
   document?: { title?: string }
 }
 
-export type ImportGlobFunction = Record<string, () => Promise<unknown>>
+export type GlobFiles = Record<string, () => Promise<unknown>>
 
-export const generateRoutesFromFiles = (files: ImportGlobFunction): RouteRecordRaw[] => {
+export const generateRoutesFromFiles = (files: GlobFiles): RouteRecordRaw[] => {
   const routeArray: RouteRecordRaw[] = []
   const exclude = ['.', '@', 'src', 'views', DEFAULT_FILE_NAME]
 
