@@ -33,7 +33,3 @@ export const generateRoutesFromFiles = (files: GlobFiles): RouteRecordRaw[] => {
 
   return transferFlatArrayToTreeArray<RouteRecordRaw>(routeArray, { key: 'path', parentKey: 'meta.parent' })
 }
-
-export const definePageMeta = (meta: PageMeta) => {
-  if (meta?.document?.title) document.title = meta.document.title
-}
