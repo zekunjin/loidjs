@@ -35,7 +35,13 @@ for (const { name, build, external, globals } of packages) {
         file: `packages/${name}/dist/${fn}.d.ts`,
         format: 'es'
       },
-      plugins: [dts()]
+      plugins: [
+        dts({
+          compilerOptions: {
+            preserveSymlinks: false
+          }
+        })
+      ]
     })
   }
 }

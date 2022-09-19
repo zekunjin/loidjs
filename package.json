@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "rollup --config rollup.config.ts --configPlugin typescript --watch",
-    "serve:vite": "pnpm -C ./playgrounds/vite dev",
+    "play:vite": "pnpm -C ./playgrounds/vite dev",
     "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "test": "jest"
   },

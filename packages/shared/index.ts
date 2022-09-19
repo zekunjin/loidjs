@@ -1,3 +1,7 @@
+import type { App } from 'vue'
+
+type PluginInstallFunction = (app: App, ...options: any[]) => any
+
 interface FlatArrayKeyOptions {
   key: string
   parentKey: string
@@ -28,3 +32,5 @@ export const useChain = (target: Record<string, any>) => {
     }
   })
 }
+
+export const useVuePlugin = (install: PluginInstallFunction) => ({ install })
