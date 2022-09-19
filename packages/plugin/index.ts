@@ -8,16 +8,12 @@ export interface FileBasedRouterOptions {
 export const createAppRE = /\bcreateApp(?:(\w+))/g
 
 export const unpluginFileBasedRouter = createUnplugin((options?: FileBasedRouterOptions) => {
-  console.log('==========  unplugin file based router ==========')
-  console.log(options)
-
   return {
     name: 'unplugin-file-based-router',
-    transformInclude: () => true,
-    async transform(code) {
-      return code
+    transformInclude: (id) => !!id.match(/main.(js|ts)/),
+    transform(code) {
+      console.log(code)
+      return { code }
     }
   }
 })
-
-export const vitePluginVueFileBasedRouter = unpluginFileBasedRouter.vite
