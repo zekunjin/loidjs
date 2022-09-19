@@ -7,9 +7,9 @@ export interface PageMeta {
   document?: { title?: string }
 }
 
-export type GlobFiles = Record<string, () => Promise<unknown>>
+export type VueGlobFiles = Record<string, () => Promise<RouteComponent>>
 
-export const generateRoutesFromFiles = (files: GlobFiles): RouteRecordRaw[] => {
+export const generateRoutesFromFiles = (files: VueGlobFiles): RouteRecordRaw[] => {
   const routeArray: RouteRecordRaw[] = []
   const exclude = ['.', '@', 'src', 'views', DEFAULT_FILE_NAME]
 
@@ -26,7 +26,7 @@ export const generateRoutesFromFiles = (files: GlobFiles): RouteRecordRaw[] => {
     routeArray.push({
       path: segments.join('/'),
       props: true,
-      component: component as () => Promise<RouteComponent>,
+      component,
       meta: { parent: segments.slice(0, segments.length - 1).join('/') }
     })
   })
