@@ -5,9 +5,11 @@ export interface FileBasedRouterOptions {
   glob?: string | string[]
 }
 
+export const DEFAULT_GLOB = ['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*']
+
 export const importFileBasedRoutesRE = /import\s\w+\sfrom\s(\'|\")~views(\'|\")/g
 
-export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterOptions = { glob: ['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*'] }) => {
+export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterOptions = { glob: DEFAULT_GLOB }) => {
   return {
     name: 'unplugin-file-based-router',
     transformInclude: (id) => /.*src.*\.(ts|js)/.test(id),
@@ -24,3 +26,7 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
     }
   }
 })
+
+export const asyncCodeFuncWrap = (lib: string, module: string, ...params: any[]): string => {
+  return `(await import('${lib}')).${module}(${JSON.stringify(params)})`
+}
