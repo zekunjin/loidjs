@@ -1,15 +1,18 @@
 import { createUnplugin } from 'unplugin'
 
-export interface FileBasedRouterOptions {
-  mode: 'hash' | 'history'
-}
+export interface FileBasedRouterOptions {}
 
-export const unpluginFileBasedRouter = createUnplugin((options?: FileBasedRouterOptions) => {
+export const importFileBasedRoutesRE = /import\s\w+\sfrom\s(\'|\")~views(\'|\")/g
+
+export const unpluginFileBasedRouter = createUnplugin(() => {
   return {
     name: 'unplugin-file-based-router',
-    transformInclude: (id) => !!id.match(/main.(js|ts)/),
+    transformInclude: (id) => /.*src.*\.(ts|js)/.test(id),
     transform(code) {
-      console.log(code)
+      const generateRoutesFromFilesStr = "(await import('@loidjs/core')).generateRoutesFromFiles"
+      const paths = "['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*']"
+      code = code.replace(importFileBasedRoutesRE, `const routes = ${generateRoutesFromFilesStr}(import.meta.glob(${paths}))`)
+
       return { code }
     }
   }

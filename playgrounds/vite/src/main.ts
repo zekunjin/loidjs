@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
-import { createRouter, createWebHistory, RouteComponent } from 'vue-router'
-import { generateRoutesFromFiles } from '@loidjs/core'
+import { createRouter, createWebHistory } from 'vue-router'
+import routes from '~views'
 import App from './App.vue'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: generateRoutesFromFiles(import.meta.glob<RouteComponent>(['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*']))
+  routes
 })
 
 const app = createApp(App)
