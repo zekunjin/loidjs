@@ -1,1 +1,1 @@
-export * from '@loidjs/router'
+export * from './router'

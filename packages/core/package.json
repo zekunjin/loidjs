@@ -12,6 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@loidjs/router": "workspace:^1.0.1"
+    "@loidjs/shared": "workspace:^1.0.0"
+  },
+  "devDependencies": {
+    "vue-router": "^4.1.5"
   }
 }

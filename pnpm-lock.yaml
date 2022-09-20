@@ -44,24 +44,6 @@ importers:
 
   packages/core:
     specifiers:
-      '@loidjs/router': workspace:^1.0.1
-    dependencies:
-      '@loidjs/router': link:../router
-
-  packages/plugin:
-    specifiers:
-      '@loidjs/shared': workspace:^1.0.0
-      magic-string: ^0.26.3
-      unplugin: ^0.9.5
-      vue-router: ^4.1.5
-    devDependencies:
-      '@loidjs/shared': link:../shared
-      magic-string: 0.26.3
-      unplugin: 0.9.5
-      vue-router: 4.1.5
-
-  packages/router:
-    specifiers:
       '@loidjs/shared': workspace:^1.0.0
       vue-router: ^4.1.5
     dependencies:
