@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "noUnusedLocals": true,
-    "types": ["jest", "./packages/plugin"]
+    "types": ["jest"]
   },
   "include": ["packages/**/*", "meta", "rollup.config.ts", "playgrounds/**/*"],
   "exclude": ["node_modules", "**/dist"]

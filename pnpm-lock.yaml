@@ -32,6 +32,16 @@ importers:
       tslib: 2.4.0
       typescript: 4.8.3
 
+  packages/common:
+    specifiers:
+      '@loidjs/shared': workspace:^1.0.0
+      unplugin: ^0.9.5
+      vue-router: ^4.1.5
+    devDependencies:
+      '@loidjs/shared': link:../shared
+      unplugin: 0.9.5
+      vue-router: 4.1.5
+
   packages/core:
     specifiers:
       '@loidjs/router': workspace:^1.0.1

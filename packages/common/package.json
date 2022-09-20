@@ -1,5 +1,5 @@
 {
-  "name": "@loidjs/plugin",
+  "name": "@loidjs/common",
   "version": "1.0.0",
   "description": "",
   "main": "./dist/index.cjs",
@@ -13,7 +13,6 @@
   "license": "ISC",
   "devDependencies": {
     "@loidjs/shared": "workspace:^1.0.0",
-    "magic-string": "^0.26.3",
     "unplugin": "^0.9.5",
     "vue-router": "^4.1.5"
   }

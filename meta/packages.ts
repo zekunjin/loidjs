@@ -23,5 +23,5 @@ export const packages: PackageManifest[] = [
   { name: 'core', display: 'loidjs', build: true, external: ['@loidjs/router'], globals: { '@loidjs/router': 'LoidRouter' } },
   { name: 'router', display: 'loidjs', build: true, external: ['vue-router', '@loidjs/shared'], globals: { 'vue-router': 'VueRouter', '@loidjs/shared': 'LoidShared' } },
   { name: 'shared', display: 'loidjs', build: true, external: ['vue'], globals: { vue: 'Vue' } },
-  { name: 'plugin', display: 'loidjs', build: true, external: ['unplugin', '@loidjs/shared'], globals: { unplugin: 'Unplugin', '@loidjs/shared': 'LoidShared' } }
+  { name: 'common', display: 'loidjs', build: true, external: ['unplugin', '@loidjs/shared'], globals: { unplugin: 'Unplugin', '@loidjs/shared': 'LoidShared' } }
 ]
