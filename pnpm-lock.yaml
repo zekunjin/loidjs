@@ -40,9 +40,11 @@ importers:
 
   packages/plugin:
     specifiers:
+      '@loidjs/shared': workspace:^1.0.0
       unplugin: ^0.9.5
       vue-router: ^4.1.5
     devDependencies:
+      '@loidjs/shared': link:../shared
       unplugin: 0.9.5
       vue-router: 4.1.5
 

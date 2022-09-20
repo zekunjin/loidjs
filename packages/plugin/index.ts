@@ -1,19 +1,26 @@
 import { createUnplugin } from 'unplugin'
+import { isString } from '@loidjs/shared'
 
-export interface FileBasedRouterOptions {}
+export interface FileBasedRouterOptions {
+  glob?: string | string[]
+}
 
 export const importFileBasedRoutesRE = /import\s\w+\sfrom\s(\'|\")~views(\'|\")/g
 
-export const unpluginFileBasedRouter = createUnplugin(() => {
+export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterOptions = { glob: ['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*'] }) => {
   return {
     name: 'unplugin-file-based-router',
     transformInclude: (id) => /.*src.*\.(ts|js)/.test(id),
     transform(code) {
-      const generateRoutesFromFilesStr = "(await import('@loidjs/core')).generateRoutesFromFiles"
-      const paths = "['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*']"
-      code = code.replace(importFileBasedRoutesRE, `const routes = ${generateRoutesFromFilesStr}(import.meta.glob(${paths}))`)
+      if (!options.glob) return { code: code.replace(importFileBasedRoutesRE, 'const routes =[]') }
 
-      return { code }
+      const generateRoutesFromFilesStr = "(await import('@loidjs/core')).generateRoutesFromFiles"
+
+      const globStr = isString(options.glob) ? options.glob : JSON.stringify(options.glob)
+
+      return {
+        code: code.replace(importFileBasedRoutesRE, `const routes = ${generateRoutesFromFilesStr}(import.meta.glob(${globStr}))`)
+      }
     }
   }
 })

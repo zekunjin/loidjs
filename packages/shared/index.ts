@@ -7,6 +7,8 @@ interface FlatArrayKeyOptions {
   parentKey: string
 }
 
+export const isString = (val: any): val is string => typeof val === 'string'
+
 export const transferFlatArrayToTreeArray = <T>(arr: Record<string, any>[], options: FlatArrayKeyOptions = { key: 'id', parentKey: 'pid' }): T[] => {
   const tree: any[] = []
   const rows: Record<string, any> = {}
