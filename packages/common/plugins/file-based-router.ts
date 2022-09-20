@@ -7,7 +7,7 @@ export interface FileBasedRouterOptions {
 
 export const DEFAULT_GLOB = ['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*']
 
-export const importFileBasedRoutesRE = /import\s\w+\sfrom\s(\'|\")~views(\'|\");?/g
+export const importFileBasedRoutesRE = /import\s(.*)\sfrom\s(\'|\")~views(\'|\");?/
 export const importRE = /import\s.*\sfrom\s(\'|\").*(\'|\");?/g
 
 export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterOptions = { glob: DEFAULT_GLOB }) => {
@@ -17,20 +17,22 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
     transform(code) {
       if (!code.match(importFileBasedRoutesRE)) return { code }
 
-      const staticImports = Array.from(code.matchAll(importRE))
-        .map(([str]) => str)
-        .filter((str) => str.indexOf('~views') < 0)
+      const importedVar = code.match(importFileBasedRoutesRE)[1] || 'routes'
 
-      if (!options.glob) return { code: code.replace(importFileBasedRoutesRE, 'const routes = []') }
+      // const staticImports = Array.from(code.matchAll(importRE))
+      //   .map(([str]) => str)
+      //   .filter((str) => str.indexOf('~views') < 0)
 
-      console.log(staticImports)
+      if (!options.glob) return { code: code.replace(importFileBasedRoutesRE, `const ${importedVar} = []`) }
+
+      // console.log(staticImports)
 
       const generateRoutesFromFilesStr = "(await import('@loidjs/core')).generateRoutesFromFiles"
 
       const globStr = isString(options.glob) ? options.glob : JSON.stringify(options.glob)
 
       return {
-        code: code.replace(importFileBasedRoutesRE, `const routes = ${generateRoutesFromFilesStr}(import.meta.glob(${globStr}))`)
+        code: code.replace(importFileBasedRoutesRE, `const ${importedVar} = ${generateRoutesFromFilesStr}(import.meta.glob(${globStr}))`)
       }
     }
   }
