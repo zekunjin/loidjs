@@ -9,8 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
-      '@loidjs/core': resolve(__dirname, '../../packages/core'),
-      '~views': resolve(__dirname, '../../packages/plugin')
+      '@loidjs/core': resolve(__dirname, '../../packages/core')
     }
   }
 })
