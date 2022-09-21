@@ -32,15 +32,13 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
         })
         .filter((str) => str.indexOf('~views') < 0)
 
-      staticImports.push('import { generateRoutesFromFiles } from "@loidjs/common";')
+      staticImports.push('import { generateRoutesFromFiles } from "@loidjs/core";\n')
 
       const globStr = isString(options.glob) ? options.glob : JSON.stringify(options.glob)
 
       const preVars = [`const ${importedVar} = generateRoutesFromFiles(import.meta.glob(${globStr}))\n`]
 
       s.prepend([...staticImports, ...preVars].join(''))
-
-      console.log(s.toString())
 
       return {
         code: s.toString(),
