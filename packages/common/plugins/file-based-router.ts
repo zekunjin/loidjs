@@ -1,5 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import MagicString from 'magic-string'
+// import { resolve, fileURLToPath } from 'mlly'
 import { isString } from '@loidjs/shared'
 
 export interface FileBasedRouterOptions {
@@ -18,7 +19,7 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
 
     transformInclude: (id) => /.*src.*\.(ts|js)/.test(id),
 
-    transform(code) {
+    async transform(code) {
       if (!code.match(importFileBasedRoutesRE)) return { code }
 
       const s = new MagicString(code)
@@ -31,7 +32,9 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
         })
         .filter((str) => str.indexOf('~views') < 0)
 
-      staticImports.push('import { generateRoutesFromFiles } from "@loidjs/core";\n')
+      // const path = await resolve('@loidjs/core', { url: await resolve(__dirname) })
+
+      staticImports.push(`import { generateRoutesFromFiles } from "@loidjs/core";\n`)
 
       const globStr = isString(options.glob) ? options.glob : JSON.stringify(options.glob)
 

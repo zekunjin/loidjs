@@ -3,7 +3,8 @@
   "compilerOptions": {
     "strict": false,
     "declaration": false,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["node"]
   },
   "include": ["packages/**/*", "meta", "rollup.config.ts", "playgrounds/**/*"],
   "exclude": ["node_modules", "**/dist"]

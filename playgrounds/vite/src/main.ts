@@ -1,11 +1,11 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import fileBasedRoutes from '~views'
+import routes from '~views'
 import App from './App.vue'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: fileBasedRoutes
+  routes
 })
 
 const app = createApp(App)
