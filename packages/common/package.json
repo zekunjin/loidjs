@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@loidjs/core": "workspace:^1.0.2",
     "@loidjs/shared": "workspace:^1.0.1",
     "magic-string": "^0.26.3",
     "unplugin": "^0.9.5"

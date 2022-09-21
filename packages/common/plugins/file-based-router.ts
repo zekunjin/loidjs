@@ -1,6 +1,5 @@
 import { createUnplugin } from 'unplugin'
 import MagicString from 'magic-string'
-import { generateRoutesFromFiles } from '@loidjs/core'
 import { isString } from '@loidjs/shared'
 
 export interface FileBasedRouterOptions {
@@ -47,5 +46,3 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
     }
   }
 })
-
-export { generateRoutesFromFiles }
