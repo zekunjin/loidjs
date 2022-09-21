@@ -19,9 +19,9 @@ interface PackageManifest {
   copy?: string[]
 }
 
-export const GLOBAL_EXTERNAL = ['vue', 'vue-router', 'unplugin', 'magic-string', '@loidjs/shared']
+export const GLOBAL_EXTERNAL = ['vue', 'vue-router', 'unplugin', 'magic-string', '@loidjs/shared', '@loidjs/core']
 
-export const IIFE_GLOBALS = { vue: 'Vue', 'vue-router': 'VueRouter', unplugin: 'Unplugin', 'magic-string': 'MagicString', '@loidjs/shared': 'LoidShared' }
+export const IIFE_GLOBALS = { vue: 'Vue', 'vue-router': 'VueRouter', unplugin: 'Unplugin', 'magic-string': 'MagicString', '@loidjs/shared': 'LoidShared', '@loidjs/core': 'LoidCore' }
 
 export const packages: PackageManifest[] = [
   { name: 'core', display: 'loidjs', build: true, external: GLOBAL_EXTERNAL, globals: IIFE_GLOBALS },

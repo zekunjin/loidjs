@@ -1,5 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import MagicString from 'magic-string'
+import { generateRoutesFromFiles } from '@loidjs/core'
 import { isString } from '@loidjs/shared'
 
 export interface FileBasedRouterOptions {
@@ -10,7 +11,7 @@ export interface FileBasedRouterOptions {
 export const DEFAULT_GLOB = ['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*']
 
 export const importFileBasedRoutesRE = /import\s*(.*)\s*from\s*(\'|\")~views(\'|\");?/
-export const importRE = /import\s*.*\s*from\s*(\'|\").*(\'|\");?/g
+export const importRE = /import\s*.*\s*from\s*(\'|\").*(\'|\");?\n?/g
 
 export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterOptions = { glob: DEFAULT_GLOB }) => {
   return {
@@ -31,13 +32,15 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
         })
         .filter((str) => str.indexOf('~views') < 0)
 
-      staticImports.push('import { generateRoutesFromFiles } from "@loidjs/core";')
+      staticImports.push('import { generateRoutesFromFiles } from "@loidjs/common";')
 
       const globStr = isString(options.glob) ? options.glob : JSON.stringify(options.glob)
 
-      const preVars = [`const ${importedVar} = generateRoutesFromFiles(import.meta.glob(${globStr}))`]
+      const preVars = [`const ${importedVar} = generateRoutesFromFiles(import.meta.glob(${globStr}))\n`]
 
-      s.prepend([...staticImports, ...preVars].join('\n'))
+      s.prepend([...staticImports, ...preVars].join(''))
+
+      console.log(s.toString())
 
       return {
         code: s.toString(),
@@ -47,8 +50,4 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
   }
 })
 
-export const asyncCodeFuncWrap = (lib: string, module: string, ...params: any[]): string => {
-  return `(await import('${lib}')).${module}(${JSON.stringify(params)})`
-}
-
-export const resolveAlias = (path: string) => {}
+export { generateRoutesFromFiles }
