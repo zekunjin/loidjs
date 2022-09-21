@@ -34,7 +34,7 @@ importers:
 
   packages/common:
     specifiers:
-      '@loidjs/shared': workspace:^1.0.0
+      '@loidjs/shared': workspace:^1.0.1
       unplugin: ^0.9.5
       vue-router: ^4.1.5
     devDependencies:
@@ -44,7 +44,7 @@ importers:
 
   packages/core:
     specifiers:
-      '@loidjs/shared': workspace:^1.0.0
+      '@loidjs/shared': workspace:^1.0.1
       vue-router: ^4.1.5
     dependencies:
       '@loidjs/shared': link:../shared
