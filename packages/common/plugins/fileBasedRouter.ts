@@ -1,6 +1,7 @@
 import { createUnplugin } from 'unplugin'
 import MagicString from 'magic-string'
-// import { resolve, fileURLToPath } from 'mlly'
+import { resolve, findStaticImports, sanitizeFilePath } from 'mlly'
+import { dirname, relative, resolve as r } from 'path'
 import { isString } from '@loidjs/shared'
 
 export interface FileBasedRouterOptions {
@@ -11,7 +12,6 @@ export interface FileBasedRouterOptions {
 export const DEFAULT_GLOB = ['@/views/**/*.vue', '!**/components/**/*', '!**/_*', '!**/.*']
 
 export const importFileBasedRoutesRE = /import\s*(.*)\s*from\s*(\'|\")~views(\'|\");?/
-export const importRE = /import\s*.*\s*from\s*(\'|\").*(\'|\");?\n?/g
 
 export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterOptions = { glob: DEFAULT_GLOB }) => {
   return {
@@ -19,22 +19,23 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
 
     transformInclude: (id) => /.*src.*\.(ts|js)/.test(id),
 
-    async transform(code) {
+    async transform(code, id) {
       if (!code.match(importFileBasedRoutesRE)) return { code }
 
       const s = new MagicString(code)
       const importedVar = code.match(importFileBasedRoutesRE)[1] || 'routes'
 
-      const staticImports = Array.from(code.matchAll(importRE))
+      const staticImports = findStaticImports(code)
         .map((match) => {
-          s.remove(match.index, match.index + match[0].length)
-          return match[0] as string
+          s.remove(match.start, match.end)
+          return match.code
         })
         .filter((str) => str.indexOf('~views') < 0)
 
-      // const path = await resolve('@loidjs/core', { url: await resolve(__dirname) })
+      const [from, to] = await Promise.all([resolve(id), resolve('@loidjs/core', { url: await resolve(__dirname) })])
+      const path = sanitizeFilePath(relative(dirname(from), dirname(r(to, '..'))))
 
-      staticImports.push(`import { generateRoutesFromFiles } from "@loidjs/core";\n`)
+      staticImports.push(`import { generateRoutesFromFiles } from "${path}";\n`)
 
       const globStr = isString(options.glob) ? options.glob : JSON.stringify(options.glob)
 

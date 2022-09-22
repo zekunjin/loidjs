@@ -1,1 +1,1 @@
-export * from './plugins/file-based-router'
+export * from './plugins/fileBasedRouter'
