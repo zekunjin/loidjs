@@ -1,6 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import MagicString from 'magic-string'
-import { resolve, findStaticImports, sanitizeFilePath } from 'mlly'
+import { resolve, findStaticImports } from 'mlly'
 import { dirname, relative, resolve as r } from 'path'
 import { isString } from '@loidjs/shared'
 
@@ -33,7 +33,7 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
         .filter((str) => str.indexOf('~views') < 0)
 
       const [from, to] = await Promise.all([resolve(id), resolve('@loidjs/core', { url: await resolve(__dirname) })])
-      const path = sanitizeFilePath(relative(dirname(from), dirname(r(to, '..'))))
+      const path = relative(dirname(from), dirname(r(to, '..'))).replace(/\\/g, '/')
 
       staticImports.push(`import { generateRoutesFromFiles } from "${path}";\n`)
 
