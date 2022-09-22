@@ -13,7 +13,6 @@
     "vue-router": "^4.1.5"
   },
   "devDependencies": {
-    "@loidjs/common": "^1.0.3",
     "@types/node": "^16.11.56",
     "@vitejs/plugin-vue": "^3.0.3",
     "@vue/tsconfig": "^0.1.3",
