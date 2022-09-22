@@ -2,18 +2,17 @@ import { createUnplugin } from 'unplugin'
 import MagicString from 'magic-string'
 import { resolve, findStaticImports } from 'mlly'
 import { dirname, relative, resolve as r } from 'path'
-import { isString } from '@loidjs/shared'
 
 export interface FileBasedRouterOptions {
   glob?: string | string[]
   pageDir?: string
 }
 
-export const DEFAULT_GLOB = ['!**/components/**/*', '!**/_*', '!**/.*']
+export const IGNORE_GLOB = ['!**/components/**/*', '!**/_*', '!**/.*']
 
 export const importFileBasedRoutesRE = /import\s*(.*)\s*from\s*(?:\'|\")~([a-zA-Z]*)(?:\'|\");?/
 
-export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterOptions = { glob: DEFAULT_GLOB }) => {
+export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterOptions = { glob: [] }) => {
   return {
     name: 'unplugin-file-based-router',
 
@@ -37,7 +36,7 @@ export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterO
 
       staticImports.push(`import { generateRoutesFromFiles } from "${path}";\n`)
 
-      const globStr = isString(options.glob) ? options.glob : JSON.stringify([`@/${importedFrom}/**/*.vue`, ...options.glob])
+      const globStr = JSON.stringify([`@/${importedFrom}/**/*.vue`, ...IGNORE_GLOB, ...[options.glob].flat()])
 
       const preVars = [`const ${importedVar} = generateRoutesFromFiles(import.meta.glob(${globStr}))\n`]
 
