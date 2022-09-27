@@ -12,7 +12,7 @@ export const IGNORE_GLOB = ['!**/components/**/*', '!**/_*', '!**/.*']
 
 export const importFileBasedRoutesRE = /import\s*(.*)\s*from\s*(?:\'|\")~([a-zA-Z]*)(?:\'|\");?/
 
-export const unpluginFileBasedRouter = createUnplugin((options: FileBasedRouterOptions = { glob: [] }) => {
+export const unpluginFileBasedRouter = createUnplugin((options?: FileBasedRouterOptions = { glob: [] }) => {
   return {
     name: 'unplugin-file-based-router',
 
