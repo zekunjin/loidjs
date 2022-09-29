@@ -15,10 +15,13 @@ export const transferFlatArrayToTreeArray = <T>(arr: Record<string, any>[], opti
 
   arr.forEach((item) => {
     rows[useChain(item)?.[options.key]] = item
+  })
+
+  arr.forEach((item) => {
     const parent = useChain(item)?.[options.parentKey]
     if (!parent) tree.push(item)
     else {
-      if (!rows[parent].children) rows[parent].children = []
+      if (!rows[parent]?.children) rows[parent].children = []
       rows[parent].children.push(rows[useChain(item)?.[options.key]])
     }
   })
