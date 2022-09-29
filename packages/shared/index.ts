@@ -21,7 +21,7 @@ export const transferFlatArrayToTreeArray = <T>(arr: Record<string, any>[], opti
     const parent = useChain(item)?.[options.parentKey]
     if (!parent) tree.push(item)
     else {
-      if (!rows[parent].children) rows[parent].children = []
+      if (!rows[parent]?.children) rows[parent].children = []
       rows[parent].children.push(rows[useChain(item)?.[options.key]])
     }
   })
