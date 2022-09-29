@@ -1,6 +1,6 @@
 {
   "name": "@loidjs/core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@loidjs/shared": "workspace:^1.0.1"
+    "@loidjs/shared": "workspace:^1.0.2"
   },
   "devDependencies": {
     "vue-router": "^4.1.5"
