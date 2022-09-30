@@ -1,6 +1,6 @@
 {
   "name": "@loidjs/core",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@loidjs/shared": "workspace:^1.0.3",
+    "@loidjs/shared": "workspace:^1.0.4",
     "pathe": "^0.3.8"
   },
   "devDependencies": {
