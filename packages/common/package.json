@@ -1,6 +1,6 @@
 {
   "name": "@loidjs/common",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@loidjs/core": "workspace:^1.0.5",
+    "@loidjs/core": "workspace:^1.0.6",
     "magic-string": "^0.26.3",
     "mlly": "^0.5.16",
     "unplugin": "^0.9.5"
