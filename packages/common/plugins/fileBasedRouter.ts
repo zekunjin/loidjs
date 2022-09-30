@@ -1,7 +1,7 @@
+import { dirname, resolve as r, relative } from 'path'
 import { createUnplugin } from 'unplugin'
 import MagicString from 'magic-string'
-import { resolve, findStaticImports } from 'mlly'
-import { dirname, relative, resolve as r } from 'path'
+import { findStaticImports, resolve } from 'mlly'
 
 export interface FileBasedRouterOptions {
   glob?: string | string[]
@@ -13,15 +13,17 @@ export const IGNORE_GLOB = ['!**/components/**/*', '!**/_*', '!**/.*']
 export const importFileBasedRoutesRE = /import\s*(.*)\s*from\s*(?:\'|\")~([a-zA-Z]*)(?:\'|\");?/
 
 export const unpluginFileBasedRouter = createUnplugin((options?: FileBasedRouterOptions) => {
-  if (!options) options = { glob: [] }
-  
+  if (!options)
+    options = { glob: [] }
+
   return {
     name: 'unplugin-file-based-router',
 
-    transformInclude: (id) => /.*src.*\.(ts|js)/.test(id),
+    transformInclude: id => /.*src.*\.(ts|js)/.test(id),
 
     async transform(code, id) {
-      if (!code.match(importFileBasedRoutesRE)) return { code }
+      if (!code.match(importFileBasedRoutesRE))
+        return { code }
 
       const s = new MagicString(code)
       const [_, importedVar, importedFrom] = code.match(importFileBasedRoutesRE)
@@ -31,7 +33,7 @@ export const unpluginFileBasedRouter = createUnplugin((options?: FileBasedRouter
           s.remove(match.start, match.end)
           return match.code
         })
-        .filter((str) => !str.match(importFileBasedRoutesRE))
+        .filter(str => !str.match(importFileBasedRoutesRE))
 
       const [from, to] = await Promise.all([resolve(id), resolve('@loidjs/core', { url: await resolve(__dirname) })])
       const path = relative(dirname(from), dirname(r(to, '..'))).replace(/\\/g, '/')
