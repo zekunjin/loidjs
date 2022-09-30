@@ -1,5 +1,5 @@
-import { escapeRE } from '@loidjs/shared'
 import { basename, extname } from 'pathe'
+import { escapeRE } from '@loidjs/shared'
 import type { RouteComponent, RouteRecordRaw } from 'vue-router'
 
 enum SegmentParserState {
@@ -39,9 +39,29 @@ const getRoutePath = (tokens: SegmentToken[]): string => {
   }, '/')
 }
 
+const prepareRoutes = (routes: RouteRecordRaw[], parent?: RouteRecordRaw) => {
+  for (const route of routes) {
+    // Remove -index
+    if (route.name)
+      route.name = (route.name as string).replace(/-index$/, '')
+
+    // Remove leading / if children route
+    if (parent && route.path.startsWith('/'))
+      route.path = route.path.slice(1)
+
+    if (route.children?.length)
+      route.children = prepareRoutes(route.children, route)
+
+    if (route.children?.find(childRoute => childRoute.path === ''))
+      delete route.name
+  }
+
+  return routes
+}
+
 const PARAM_CHAR_RE = /[\w\d_.]/
 
-export const parseSegment = (segment: string) => {
+const parseSegment = (segment: string) => {
   let state: SegmentParserState = SegmentParserState.initial
   let i = 0
 
@@ -135,7 +155,9 @@ export const generateRoutesFromFiles = (files: VueGlobFiles): RouteRecordRaw[] =
   const exclude = ['.', '@', 'src', 'views', '']
 
   Object.entries(files).forEach(([path, component]) => {
-    const segments = path.replace(new RegExp(`${escapeRE(extname(basename(path)))}$`), '').split('/').filter(path => !exclude.includes(path))
+    const segments = path.replace(new RegExp(`${escapeRE(extname(basename(path)))}$`), '')
+      .split('/')
+      .filter(path => !exclude.includes(path))
 
     const route: RouteRecordRaw = {
       path: '',
@@ -151,6 +173,7 @@ export const generateRoutesFromFiles = (files: VueGlobFiles): RouteRecordRaw[] =
       const segmentName = tokens.map(({ value }) => value).join('')
       const isSingleSegment = segments.length === 1
 
+      // ex: parent/[slug].vue -> parent-slug
       route.name = (route.name as string) + (route.name && '-') + segmentName
 
       // ex: parent.vue + parent/child.vue
@@ -174,6 +197,6 @@ export const generateRoutesFromFiles = (files: VueGlobFiles): RouteRecordRaw[] =
     parent.push(route)
   })
 
-  return routes
+  return prepareRoutes(routes)
 }
 

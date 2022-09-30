@@ -55,12 +55,14 @@ importers:
 
   packages/core:
     specifiers:
-      '@loidjs/shared': workspace:^1.0.3
+      '@loidjs/shared': workspace:^1.0.4
       pathe: ^0.3.8
+      ufo: ^0.8.5
       vue-router: ^4.1.5
     dependencies:
       '@loidjs/shared': link:../shared
       pathe: 0.3.8
+      ufo: 0.8.5
     devDependencies:
       vue-router: 4.1.5
 
