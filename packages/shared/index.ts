@@ -38,4 +38,10 @@ export const useChain = (target: Record<string, any>) => {
   })
 }
 
+export const escapeRE = (string: string) => {
+  return string
+  .replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
+  .replace(/-/g, '\\x2d');
+}
+
 export const useVuePlugin = (install: PluginInstallFunction) => ({ install })
